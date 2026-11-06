@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Ceramic spray dryer with lances</title>
+<style>
+:root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);
+--page:#ffffff;--text-primary:#1f1e1d;--text-secondary:#5f5e5a;--text-muted:#888780;--t:#5f5e5a;--cl:34%;
+--surface-1:#f3f2ec;--surface-2:#ffffff;--border:rgba(0,0,0,.15);--border-strong:rgba(0,0,0,.35);--grid:rgba(0,0,0,.12);
+--bg-success:#eaf3de;--border-success:#97c459;--text-success:#3b6d11;--text-warning:#854f0b;--radius:8px;
+--coral-fill:#faece7;--coral-stroke:#993c1d;--coral-t1:#712b13;--coral-t2:#993c1d}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--page:#1f1e1d;--text-primary:#f1efe8;--text-secondary:#c2c0b6;--text-muted:#9c9a92;--t:#b4b2a9;--cl:64%;--surface-1:#2c2c2a;--surface-2:#262624;--border:rgba(255,255,255,.18);--border-strong:rgba(255,255,255,.4);--grid:rgba(255,255,255,.14);--bg-success:#27500a;--border-success:#639922;--text-success:#c0dd97;--text-warning:#fac775;--coral-fill:#712b13;--coral-stroke:#f0997b;--coral-t1:#faece7;--coral-t2:#f5c4b3}}
+:root[data-theme="dark"]{--page:#1f1e1d;--text-primary:#f1efe8;--text-secondary:#c2c0b6;--text-muted:#9c9a92;--t:#b4b2a9;--cl:64%;--surface-1:#2c2c2a;--surface-2:#262624;--border:rgba(255,255,255,.18);--border-strong:rgba(255,255,255,.4);--grid:rgba(255,255,255,.14);--bg-success:#27500a;--border-success:#639922;--text-success:#c0dd97;--text-warning:#fac775;--coral-fill:#712b13;--coral-stroke:#f0997b;--coral-t1:#faece7;--coral-t2:#f5c4b3}
+*,*::before,*::after{box-sizing:inherit}
+body{margin:0;background:var(--page);color:var(--text-primary);font-family:system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;font-size:15px;line-height:1.5}
+.page{max-width:760px;margin:0 auto;padding:12px 16px 32px}
+h1{font-size:20px;font-weight:500;margin:0 0 2px}
+.sub{font-size:13px;color:var(--text-secondary);margin:0 0 12px}
+svg text{font-family:inherit}
+.t{font-size:14px;fill:var(--text-primary)}
+.ts{font-size:12px;fill:var(--text-secondary)}
+.th{font-size:14px;font-weight:500;fill:var(--text-primary)}
+.arr{stroke:var(--t);stroke-width:1.5;fill:none}
+.c-coral rect{fill:var(--coral-fill);stroke:var(--coral-stroke)}
+.c-coral .th{fill:var(--coral-t1)}
+.c-coral .ts{fill:var(--coral-t2)}
+@keyframes dash{to{stroke-dashoffset:-11}}
+@keyframes drift{0%{transform:translate(0,0);opacity:0}12%{opacity:.9}70%{opacity:.8}100%{transform:translate(var(--dx),var(--dy));opacity:0}}
+@media (prefers-reduced-motion: no-preference){
+.dash{animation:dash var(--dd,1s) linear infinite}
+.hot{animation:dash 1s linear infinite}
+.wd{animation:drift var(--wd,1.8s) ease-out infinite}
+.pw{animation:drift 2.6s ease-in infinite}
+}
+.ctl{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--text-secondary);margin-top:8px}
+.ctl span:first-child{min-width:112px}
+input[type=range]{flex:1;accent-color:#378add}
+.grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:12px;margin-top:8px;align-items:start}
+.m{background:var(--surface-1);border-radius:var(--radius);padding:8px 10px}
+.m .l{font-size:12px;color:var(--text-secondary)}
+.m .v{font-size:18px;font-weight:500}
+.m .s{font-size:11px;color:var(--text-muted)}
+.note{font-size:13px;color:var(--text-secondary);margin:6px 0 0}
+.h2{font-size:13px;font-weight:500;margin:16px 0 4px}
+table{width:100%;border-collapse:collapse;font-size:12px}
+th,td{padding:5px 6px;text-align:left;border-bottom:0.5px solid var(--border)}
+th{font-weight:500;color:var(--text-secondary)}
+tr.cur td{font-weight:500;background:var(--surface-1)}
+.zoombar{position:sticky;top:0;z-index:10;display:flex;justify-content:flex-end;padding:6px 10px 0;pointer-events:none}
+.zpill{pointer-events:auto;display:flex;align-items:center;gap:4px;background:var(--surface-1);border:0.5px solid var(--border-strong);border-radius:999px;padding:2px 8px;color:var(--text-secondary);font-size:10px}
+.zpill button{width:19px;height:19px;border-radius:50%;border:0.5px solid var(--border-strong);background:var(--page);color:var(--text-primary);font-size:13px;line-height:1;cursor:pointer;padding:0}
+.zpill input{width:88px;flex:none}
+#zo{min-width:28px;text-align:right}
+@media (max-width:560px){.grid{grid-template-columns:minmax(0,1fr)}}
+</style>
+</head>
+<body>
+<div class="zoombar"><div class="zpill"><svg width="13" height="13" viewBox="0 0 16 16" aria-hidden="true"><circle cx="7" cy="7" r="4.5" fill="none" stroke="currentColor" stroke-width="1.5"/><line x1="10.5" y1="10.5" x2="14" y2="14" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg><button type="button" id="zm" aria-label="Zoom out">&minus;</button><input type="range" id="zr" min="50" max="120" step="5" value="90" aria-label="Page zoom"><button type="button" id="zp" aria-label="Zoom in">+</button><span id="zo">90%</span></div></div>
+<div class="page">
+<h1>Ceramic spray dryer with lances</h1>
+<p class="sub">Slip from the lance nozzles dries into powder in hot air from the tower top. Calibrated on plant data. Move the sliders to see the effect on powder moisture and particle size.</p>
+<svg id="sd" width="100%" viewBox="0 0 680 460" role="img" style="display:block">
+<title>Ceramic spray dryer with lances</title>
+<desc>Slip is pumped to lances on the tower wall and sprayed into hot air that enters from the tower top. Droplets dry into powder that falls to the cone outlet. Exhaust air and fines go to a cyclone.</desc>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="context-stroke" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></marker></defs>
+<path id="tint" d="M210 88Q340 72 470 88V265L355 335H325L210 265Z" fill="#E24B4A" fill-opacity="0.12" stroke="var(--t)" stroke-width="1.2"/>
+<rect x="110" y="28" width="255" height="22" fill="#F09595" fill-opacity="0.3" stroke="var(--t)" stroke-width="0.5"/>
+<rect x="315" y="50" width="50" height="34" fill="#F09595" fill-opacity="0.3" stroke="var(--t)" stroke-width="0.5"/>
+<g class="c-coral"><rect x="10" y="14" width="100" height="52" rx="4" stroke-width="0.5"/><text class="th" x="60" y="32" text-anchor="middle">Hot air</text><text class="ts" x="60" y="50" text-anchor="middle">generator</text></g>
+<text class="th" id="t-in" x="240" y="20" text-anchor="middle">Hot air in 678 °C</text>
+<g id="hot" stroke="#D85A30" fill="none" stroke-width="2">
+<line class="hot" x1="285" y1="100" x2="285" y2="190" stroke-dasharray="6 5" marker-end="url(#arrow)"/>
+<line class="hot" x1="340" y1="100" x2="340" y2="190" stroke-dasharray="6 5" marker-end="url(#arrow)"/>
+<line class="hot" x1="395" y1="100" x2="395" y2="190" stroke-dasharray="6 5" marker-end="url(#arrow)"/>
+</g>
+<g id="spL"></g>
+<g id="spR" transform="translate(680 0) scale(-1 1)"></g>
+<g id="pw"></g>
+<polygon points="322,322 358,322 355,335 325,335" fill="#E3D3B0" stroke="#A08C66" stroke-width="0.5"/>
+<rect x="325" y="335" width="30" height="12" rx="2" fill="none" stroke="var(--t)" stroke-width="1"/>
+<line x1="340" y1="349" x2="340" y2="364" class="arr" marker-end="url(#arrow)"/>
+<text class="th" x="340" y="378" text-anchor="middle">Dry powder out</text>
+<text class="ts" id="t-m" x="340" y="394" text-anchor="middle" style="font-weight:500">Moisture 7.4%</text>
+<path d="M165 410V225H250" fill="none" stroke="var(--t)" stroke-width="3"/>
+<path d="M165 410H505V300M505 280V225H430" fill="none" stroke="var(--t)" stroke-width="3"/>
+<path class="dash" id="flow" d="M138 410H165V225H250M165 410H505V300M505 280V225H430" fill="none" stroke="#378ADD" stroke-width="1.5" stroke-dasharray="4 7"/>
+<circle cx="250" cy="225" r="4" fill="var(--t)"/>
+<circle cx="430" cy="225" r="4" fill="var(--t)"/>
+<text class="ts" x="188" y="216">Lance</text>
+<text class="ts" x="478" y="216">Lance</text>
+<circle cx="165" cy="320" r="10" fill="var(--surface-2)" stroke="var(--t)" stroke-width="1"/>
+<line id="needle" x1="165" y1="320" x2="165" y2="312" stroke="var(--t)" stroke-width="1.5"/>
+<text class="th" id="t-p" x="148" y="324" text-anchor="end">11 bar</text>
+<rect id="tank" x="4" y="385" width="72" height="52" rx="4" fill="#B5D4F4" fill-opacity="0.5" stroke="var(--t)" stroke-width="1"/>
+<text class="ts" x="40" y="400" text-anchor="middle" style="font-size:11px">Slip tank</text>
+<text class="ts" id="t-d" x="40" y="415" text-anchor="middle" style="font-size:11px">1.636 g/cc</text>
+<text class="ts" id="t-v" x="40" y="429" text-anchor="middle" style="font-size:11px">2.4 °E</text>
+<line x1="76" y1="410" x2="98" y2="410" stroke="var(--t)" stroke-width="3"/>
+<circle cx="118" cy="410" r="20" fill="var(--surface-2)" stroke="var(--t)" stroke-width="1.5"/>
+<path d="M110 402L128 410L110 418Z" fill="none" stroke="var(--t)" stroke-width="1"/>
+<text class="ts" x="118" y="448" text-anchor="middle">High-pressure pump</text>
+<rect x="425" y="282" width="125" height="16" fill="#D3D1C7" fill-opacity="0.4" stroke="var(--t)" stroke-width="0.5"/>
+<rect x="550" y="255" width="70" height="42" fill="none" stroke="var(--t)" stroke-width="1"/>
+<polygon points="550,297 620,297 597,345 573,345" fill="none" stroke="var(--t)" stroke-width="1"/>
+<text class="ts" x="585" y="280" text-anchor="middle">Cyclone</text>
+<line x1="585" y1="255" x2="585" y2="214" class="arr" marker-end="url(#arrow)"/>
+<text class="th" id="t-exh" x="585" y="188" text-anchor="middle">Exhaust 105 °C</text>
+<text class="ts" x="585" y="204" text-anchor="middle">to fan and stack</text>
+<line x1="585" y1="347" x2="585" y2="362" class="arr" marker-end="url(#arrow)"/>
+<text class="ts" x="585" y="378" text-anchor="middle">Fines</text>
+<circle cx="610" cy="62" r="34" fill="none" stroke="var(--t)" stroke-width="0.5"/>
+<g stroke="var(--t)" stroke-width="1.5"><line x1="644" y1="62" x2="630" y2="62"/><line x1="634" y1="86" x2="624" y2="76"/><line x1="610" y1="96" x2="610" y2="82"/><line x1="586" y1="86" x2="596" y2="76"/><line x1="576" y1="62" x2="590" y2="62"/><line x1="586" y1="38" x2="596" y2="48"/><line x1="610" y1="28" x2="610" y2="42"/><line x1="634" y1="38" x2="624" y2="48"/></g>
+<circle cx="610" cy="62" r="4" fill="#D85A30"/>
+<text class="ts" x="610" y="112" text-anchor="middle">Plan view</text>
+<text class="th" id="t-nz" x="610" y="128" text-anchor="middle" style="font-size:12px">26 nozzles</text>
+</svg>
+
+<div class="grid">
+<div>
+<div class="ctl"><span>Air temperature</span><input type="range" id="tt" min="620" max="700" step="1" value="678" oninput="update()" aria-label="Air temperature"><span id="tt-o" style="min-width:64px;text-align:right">678 °C</span></div>
+<div class="ctl"><span>Pump pressure</span><input type="range" id="pp" min="10" max="18" step="0.5" value="11" oninput="update()" aria-label="Pump pressure"><span id="pp-o" style="min-width:64px;text-align:right">11 bar</span></div>
+<div class="ctl"><span>Slip viscosity</span><input type="range" id="vv" min="2" max="4" step="0.1" value="2.4" oninput="update()" aria-label="Slip viscosity in Engler degrees"><span id="vv-o" style="min-width:64px;text-align:right">2.4 °E</span></div>
+<div class="ctl"><span>Slip density</span><input type="range" id="dd" min="1.6" max="1.69" step="0.001" value="1.636" oninput="update()" aria-label="Slip density"><span id="dd-o" style="min-width:64px;text-align:right">1.636</span></div>
+<div class="ctl"><span>Nozzle quantity</span><input type="range" id="nn" min="24" max="32" step="1" value="26" oninput="update()" aria-label="Nozzle quantity"><span id="nn-o" style="min-width:64px;text-align:right">26</span></div>
+<p id="n1" class="note"></p><p id="n2" class="note"></p><p id="n3" class="note"></p><p id="n4" class="note"></p><p id="n5" class="note"></p><p id="n6" class="note" style="color:var(--text-primary)"></p><p id="n7" class="note" style="font-size:12px;color:var(--text-muted)"></p>
+</div>
+<div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:8px">
+<div class="m"><div class="l">Powder moisture</div><div class="v" id="m-m">7.4%</div><div class="s" id="m-ms">spec 6.8 to 7.8%</div></div>
+<div class="m"><div class="l">Mean size d50</div><div class="v" id="m-d">486 µm</div><div class="s" id="m-r" style="font-size:12px;color:var(--text-primary)">23% on mesh 30</div></div>
+<div class="m"><div class="l">Exhaust air</div><div class="v" id="m-e">105 °C</div><div class="s">cyclone inlet</div></div>
+<div class="m"><div class="l">Slip flow</div><div class="v" id="m-f">100%</div><div class="s" id="m-fs">solids 100%</div></div>
+<div class="m" style="grid-column:1/-1"><div class="l">Powder capacity</div><div class="v" id="m-c">24,500 kg/h</div><div class="s" id="m-cs">powder with moisture. Plant: 24,000 to 25,000 kg/h</div></div>
+</div>
+</div>
+
+<div style="margin-top:14px">
+<div style="display:flex;justify-content:space-between;gap:8px;font-size:12px;color:var(--text-secondary);margin-bottom:4px"><span>Particle size distribution (% by weight)</span><span id="psd-s" style="text-align:right"></span></div>
+<div style="position:relative;height:100px;display:flex;gap:8px;border-bottom:0.5px solid var(--border-strong)">
+<div style="position:absolute;left:0;right:0;bottom:30px;height:50px;background:var(--bg-success);opacity:0.55;border-top:0.5px dashed var(--border-success);border-bottom:0.5px dashed var(--border-success)"></div>
+<div style="position:absolute;right:4px;bottom:66px;font-size:11px;color:var(--text-success)">15 to 40% band</div>
+<div id="cols" style="position:absolute;left:0;right:0;top:0;bottom:0;display:flex;gap:8px"></div>
+</div>
+<div style="display:flex;gap:8px;font-size:11px;color:var(--text-secondary);margin-top:2px"><div style="flex:1;text-align:center">&lt;150 µm</div><div style="flex:1;text-align:center">150 to 250</div><div style="flex:1;text-align:center">250 to 425 *</div><div style="flex:1;text-align:center">425 to 600</div><div style="flex:1;text-align:center">&gt;600 (mesh 30) *</div></div>
+<p style="font-size:11px;color:var(--text-muted);margin:4px 0 0">* The 15 to 40% band is checked on these two classes. In the plant data the 425 to 600 µm class is about 44% and the two fine classes are below 15%, so they cannot follow that band.</p>
+</div>
+
+<div class="h2">Moisture calibration check</div>
+<div id="cc" style="font-size:13px"></div>
+<div class="h2">What happens if you move one slider up one step</div>
+<table><thead><tr><th>Slider (one step up)</th><th>Moisture</th><th>d50</th><th>Mesh 30</th><th>Exhaust</th></tr></thead><tbody id="tb"></tbody></table>
+
+<div class="h2">Effect of nozzle quantity (other sliders as set)</div>
+<table><thead><tr><th>Nozzles</th><th>Slip flow</th><th>Moisture</th><th>Hot air for 7.3%</th><th>Mesh 30</th><th>Powder</th></tr></thead><tbody id="tn"></tbody></table>
+<p style="font-size:11px;color:var(--text-muted);margin:4px 0 0">Hot air for 7.3% is the air temperature needed to hold the moisture in the middle of the 6.8 to 7.8% spec.</p>
+
+<div class="h2">Operating window</div>
+<div id="ws" style="font-size:13px;margin-bottom:4px"></div>
+<svg width="100%" viewBox="0 0 360 152" role="img" style="display:block;max-width:520px">
+<title>Operating window map for air temperature and pump pressure</title>
+<g id="cells"></g>
+<circle id="wmk" cx="0" cy="0" r="4.5" fill="#D85A30" stroke="#ffffff" stroke-width="1"/>
+<text class="ts" x="44" y="136" text-anchor="middle" style="font-size:10px">620</text><text class="ts" x="188" y="136" text-anchor="middle" style="font-size:10px">660</text><text class="ts" x="332" y="136" text-anchor="middle" style="font-size:10px">700 °C</text>
+<text class="ts" x="38" y="123" text-anchor="end" style="font-size:10px">10</text><text class="ts" x="38" y="71" text-anchor="end" style="font-size:10px">14</text><text class="ts" x="38" y="19" text-anchor="end" style="font-size:10px">18 bar</text>
+<text class="ts" x="188" y="149" text-anchor="middle" style="font-size:10px">Air temperature</text>
+</svg>
+<p style="font-size:11px;color:var(--text-muted);margin:4px 0 0">Green cells: moisture 6.8 to 7.8% and both checked size classes between 15 and 40%, at the current viscosity, density and nozzle quantity. The dot is the current setting.</p>
+<p style="font-size:11px;color:var(--text-muted);margin:8px 0 0">Calibrated on 682 plant readings (hot air 635 to 697 °C, 10 to 13 bar, 20 to 28 nozzles, 2.0 to 3.0 °E, 1.610 to 1.666 g/cc). The plant holds moisture near 7.4% by adjusting hot air, so the data alone cannot separate every effect. Moisture follows a drying balance between the slip flow (evaporation load) and the heat from the hot air. It is calibrated so that +5 °C of hot air lowers the moisture by about 0.1%, and +0.5 bar of pump pressure raises it by about 0.17% at the same hot air, as seen in plant operation. This needs the slip flow to rise faster than the nozzle law with pressure, and it gives about 6 °C of hot air per extra nozzle, which is higher than the plant data suggest. Outside the plant range the values are extrapolations. Powder capacity is anchored at 24,500 kg/h (plant range 24,000 to 25,000) for 26 nozzles, 11 bar, 2.4 to 2.8 °E and 1.630 to 1.645 g/cc.</p>
+</div>
+<script>
+var NS='http://www.w3.org/2000/svg';
+function $(id){return document.getElementById(id);}
+function rnd(a,b){return a+Math.random()*(b-a);}
+function mk(t,a,p){var e=document.createElementNS(NS,t);for(var k in a)e.setAttribute(k,a[k]);p.appendChild(e);return e;}
+var SPEC={mLo:6.8,mHi:7.8,bLo:15,bHi:40,chk:[2,4]};
+var A={T:678,P:11,N:26,V:2.4,D:1.636,M:7.41,Te:104.5};
+var KM=3.0,AL=0.02/KM,NP=1.28;
+var BASE=[3.11,8.13,21.58,44.04,23.25];
+var CT=[0.0021,-0.0114,0.0105,-0.0119,0.0038],CP=[0.042,0.289,0,0.048,-0.498],CN=[0.037,0.124,-0.046,-0.077,-0.043],CD=[0.005,-0.002,-0.023,-0.043,0.072],CV=[-1.10,-1.55,1.17,2.64,-0.8];
+var AX=250,AY=225,NW=18,wets=[],dries=[];
+['spL','spR'].forEach(function(id){
+var g=$(id),pl=mk('polygon',{fill:'#5B8DB8','fill-opacity':'0.3'},g),o={pl:pl,d:[]};
+for(var i=0;i<NW;i++){var c=mk('circle',{r:2.5,fill:'#3F7DB5','class':'wd'},g);c.style.animationDelay=(-Math.random()*1.8).toFixed(2)+'s';o.d.push({el:c,u:rnd(-1,1),r:rnd(8,60)});}
+wets.push(o);});
+var pg=$('pw');
+for(var i=0;i<26;i++){var x=rnd(255,425),y=rnd(140,215);var c=mk('circle',{cx:x.toFixed(1),cy:y.toFixed(1),r:3,fill:'#E3D3B0',stroke:'#A08C66','stroke-width':'0.6','class':'pw'},pg);c.style.setProperty('--dx',(340+(x-340)*0.12-x).toFixed(1)+'px');c.style.setProperty('--dy',(322-y+rnd(-4,4)).toFixed(1)+'px');c.style.animationDelay=(-Math.random()*2.6).toFixed(2)+'s';dries.push(c);}
+var cols=$('cols'),bars=[];
+for(var i=0;i<5;i++){var col=document.createElement('div');col.style.cssText='flex:1;position:relative';var b=document.createElement('div');b.style.cssText='position:absolute;bottom:0;left:18%;right:18%;border-radius:3px 3px 0 0;transition:height .25s';var v=document.createElement('div');v.style.cssText='position:absolute;left:0;right:0;text-align:center;font-size:11px;color:var(--text-primary)';col.appendChild(b);col.appendChild(v);cols.appendChild(col);bars.push({b:b,v:v});}
+function sol(D){return (1-1/D)/(1-1/2.6);}
+var WL0=A.D*(1-sol(A.D)),SO0=A.D*sol(A.D);
+function d50of(pc){var ed=[50,150,250,425,600,1000],cum=0;for(var i=0;i<5;i++){var nx=cum+pc[i];if(nx>=50){var f=(50-cum)/pc[i];return Math.exp(Math.log(ed[i])+f*(Math.log(ed[i+1])-Math.log(ed[i])));}cum=nx;}return 1000;}
+function model(T,P,V,D,N){
+var dT=T-A.T,dP=P-A.P,dV=V-A.V,dd=(D-A.D)*1000,dN=N-A.N;
+var Fq=(N/A.N)*Math.pow(P/A.P,NP)*(1-0.05*dV),WL=D*(1-sol(D))/WL0;
+var lnL=Math.log(Fq*WL);
+var lnX=lnL-AL*dT+0.07*dV;
+var M=A.M+3*Math.tanh(KM*lnX/3)+0.4*Math.max(0,V-3);
+var Te=A.Te+45*(AL*dT-lnL);
+var pc=BASE.map(function(b,i){return Math.max(0.3,b+CT[i]*dT+CP[i]*dP+CN[i]*dN+CD[i]*dd+CV[i]*dV);});
+var s=pc.reduce(function(a,b){return a+b;},0);pc=pc.map(function(x){return x*100/s;});
+var inB=SPEC.chk.every(function(i){return pc[i]>=SPEC.bLo&&pc[i]<=SPEC.bHi;});
+return {M:M,Te:Te,pc:pc,d50:d50of(pc),flow:Fq*100,sr:Fq*D*sol(D),solids:Fq*D*sol(D)/SO0*100,inB:inB,ok:M>=SPEC.mLo&&M<=SPEC.mHi&&inB};
+}
+function thold(P,V,D,N,target){var lo=400,hi=900;for(var i=0;i<40;i++){var m=(lo+hi)/2;if(model(m,P,V,D,N).M>target)lo=m;else hi=m;}return (lo+hi)/2;}
+var REF=model(A.T,A.P,2.6,1.6375,A.N),KC=24500/(REF.sr/(1-REF.M/100));
+function specColor(M){var d=Math.max(0,SPEC.mLo-M,M-SPEC.mHi),t=Math.min(1,d/0.5);return 'hsl('+Math.round(110*(1-t))+',62%,var(--cl))';}
+function arrowTxt(d,unit,dec,eps){if(Math.abs(d)<eps)return '\u2013';return (d>0?'\u25B2 +':'\u25BC \u2212')+Math.abs(d).toFixed(dec)+unit;}
+var cellsG=$('cells');
+function update(){
+var T=+$('tt').value,P=+$('pp').value,V=+$('vv').value,D=+$('dd').value,N=+$('nn').value;
+$('tt-o').textContent=T+' °C';$('pp-o').textContent=(P%1?P.toFixed(1):P)+' bar';$('vv-o').textContent=V.toFixed(1)+' °E';$('dd-o').textContent=D.toFixed(3);$('nn-o').textContent=N;
+$('t-in').textContent='Hot air in '+T+' °C';$('t-p').textContent=(P%1?P.toFixed(1):P)+' bar';$('t-nz').textContent=N+' nozzles';
+$('t-d').textContent=D.toFixed(3)+' g/cc';$('t-v').textContent=V.toFixed(1)+' °E';
+$('tank').setAttribute('fill-opacity',(0.3+5*(D-1.6)*0.8).toFixed(2));
+var r=model(T,P,V,D,N),dV=V-A.V;
+var tf=(T-620)/80;
+$('tint').setAttribute('fill-opacity',(0.05+0.25*tf).toFixed(2));
+var hot=$('hot');hot.setAttribute('stroke-width',(1.4+1.8*tf).toFixed(1));hot.style.opacity=(0.5+0.5*tf).toFixed(2);
+$('needle').setAttribute('transform','rotate('+(-120+(P-10)/8*240).toFixed(0)+' 165 320)');
+$('flow').style.setProperty('--dd',(1.4*11/P).toFixed(2)+'s');
+var al=Math.max(8,12+(P-10)*1.75-3*dV)*Math.PI/180,t0=-38*Math.PI/180,L=110,sq=Math.sqrt(P/A.P),nv=Math.round(14*N/A.N);
+wets.forEach(function(o){
+var p1=[AX+L*Math.cos(t0-al),AY+L*Math.sin(t0-al)],p2=[AX+L*Math.cos(t0+al),AY+L*Math.sin(t0+al)];
+o.pl.setAttribute('points',AX+','+AY+' '+p1[0].toFixed(1)+','+p1[1].toFixed(1)+' '+p2[0].toFixed(1)+','+p2[1].toFixed(1));
+o.pl.setAttribute('fill-opacity',(0.2+0.03*(P-10)+0.012*(N-26)).toFixed(2));
+var wr=3.0-(P-10)*0.1+0.35*dV;
+o.d.forEach(function(d,k){var th=t0+d.u*al;d.el.setAttribute('display',k<nv?'inline':'none');d.el.setAttribute('cx',(AX+d.r*Math.cos(th)).toFixed(1));d.el.setAttribute('cy',(AY+d.r*Math.sin(th)).toFixed(1));d.el.setAttribute('r',wr.toFixed(1));d.el.style.setProperty('--dx',(40*Math.cos(th)).toFixed(1)+'px');d.el.style.setProperty('--dy',(40*Math.sin(th)).toFixed(1)+'px');d.el.style.setProperty('--wd',(1.8/sq).toFixed(2)+'s');});
+});
+var rr=2.2+(r.d50-250)/120;dries.forEach(function(c){c.setAttribute('r',rr.toFixed(1));});
+var okM=r.M>=SPEC.mLo&&r.M<=SPEC.mHi,col=specColor(r.M);
+var me=$('m-m');me.textContent=r.M.toFixed(1)+'%';me.style.color=col;
+var ms=$('m-ms');ms.textContent=okM?'in spec 6.8 to 7.8%':(r.M>SPEC.mHi?'too wet, spec 6.8 to 7.8%':'too dry, spec 6.8 to 7.8%');ms.style.color=okM?'':col;
+var tm=$('t-m');tm.textContent='Moisture '+r.M.toFixed(1)+'%';tm.style.fill=col;
+$('m-d').textContent=Math.round(r.d50)+' µm';
+$('m-r').textContent=Math.round(r.pc[4])+'% on mesh 30';
+$('m-e').textContent=Math.round(r.Te)+' °C';$('t-exh').textContent='Exhaust '+Math.round(r.Te)+' °C';
+$('m-f').textContent=Math.round(r.flow)+'%';$('m-fs').textContent='solids '+Math.round(r.solids)+'%, '+N+' nozzles';
+var kg=KC*r.sr/(1-r.M/100);$('m-c').textContent=Math.round(kg).toLocaleString('en-US')+' kg/h';$('m-cs').textContent='powder at '+r.M.toFixed(1)+'% moisture. Plant: 24,000 to 25,000 kg/h'+((kg>=24000&&kg<=25000)?'':' (outside)');
+var bad=[],lab=['','','250 to 425','','>600'];
+r.pc.forEach(function(v,i){var h=Math.min(v,50)*2,chk=SPEC.chk.indexOf(i)>=0,out=chk&&(v<SPEC.bLo||v>SPEC.bHi);if(out)bad.push(lab[i]);bars[i].b.style.height=h+'px';bars[i].b.style.background=chk?(out?'#BA7517':'#378ADD'):'#888780';bars[i].v.style.bottom=(h+2)+'px';bars[i].v.textContent=Math.round(v)+'%';});
+var ps=$('psd-s');ps.textContent=bad.length?'out of band: '+bad.join(', '):'checked classes in band';ps.style.color=bad.length?'var(--text-warning)':'var(--text-success)';
+var steps=[['Air temperature (+5 °C)',Math.min(T+5,700),P,V,D,N],['Pump pressure (+0.5 bar)',T,Math.min(P+0.5,18),V,D,N],['Slip viscosity (+0.2 °E)',T,P,Math.min(V+0.2,4),D,N],['Slip density (+0.005 g/cc)',T,P,V,Math.min(D+0.005,1.69),N],['Nozzle quantity (+1)',T,P,V,D,Math.min(N+1,32)]];
+var tb='';steps.forEach(function(s){var u=model(s[1],s[2],s[3],s[4],s[5]);tb+='<tr><td>'+s[0]+'</td><td>'+arrowTxt(u.M-r.M,'%',2,0.005)+'</td><td>'+arrowTxt(u.d50-r.d50,' µm',0,0.5)+'</td><td>'+arrowTxt(u.pc[4]-r.pc[4],' pts',1,0.05)+'</td><td>'+arrowTxt(u.Te-r.Te,' °C',1,0.05)+'</td></tr>';});
+$('tb').innerHTML=tb;
+var cT=model(T+5,P,V,D,N).M-r.M,cP=model(T,P+0.5,V,D,N).M-r.M;
+function ck(v,lo,hi){return (v>=lo&&v<=hi)?'\u2713 ':'\u2717 ';}
+function sg(v){return (v>=0?'+':'\u2212')+Math.abs(v).toFixed(2)+'%';}
+$('cc').innerHTML='<div>'+ck(cT,-0.12,-0.08)+'Hot air +5 °C: moisture '+sg(cT)+' (plant: \u22120.08 to \u22120.12%)</div><div>'+ck(cP,0.15,0.20)+'Pump pressure +0.5 bar at the same hot air: moisture '+sg(cP)+' (plant: +0.15 to +0.20%)</div>';
+var rows=[24,26,28,30,32];if(rows.indexOf(N)<0){rows.push(N);rows.sort(function(a,b){return a-b;});}
+var tn='';rows.forEach(function(n){var u=model(T,P,V,D,n);tn+='<tr'+(n===N?' class="cur"':'')+'><td>'+n+(n===N?' (set)':'')+'</td><td>'+Math.round(u.flow)+'%</td><td>'+u.M.toFixed(1)+'%</td><td>'+Math.round(thold(P,V,D,n,7.3))+' °C</td><td>'+Math.round(u.pc[4])+'%</td><td>'+Math.round(KC*u.sr/(1-u.M/100)).toLocaleString('en-US')+' kg/h</td></tr>';});
+$('tn').innerHTML=tn;
+cellsG.innerHTML='';var cnt=0;
+for(var i=0;i<17;i++){for(var j=0;j<9;j++){var ok=model(620+i*5,10+j,V,D,N).ok;if(ok)cnt++;mk('rect',{x:44+i*17,y:8+(8-j)*13,width:17,height:13,fill:ok?'#639922':'none','fill-opacity':'0.6',stroke:'var(--grid)','stroke-width':'0.5'},cellsG);}}
+$('wmk').setAttribute('cx',(44+(T-620)/5*17+8.5).toFixed(1));$('wmk').setAttribute('cy',(8+(8-(P-10))*13+6.5).toFixed(1));
+var ws=$('ws');ws.textContent=(r.ok?'Current setting is inside the window. ':'Current setting is outside the window. ')+cnt+' of 153 temperature and pressure combinations work at this viscosity, density and nozzle quantity.';ws.style.color=r.ok?'var(--text-success)':'var(--text-warning)';
+var dT=T-A.T,dP=P-A.P,dD=D-A.D,n1,n2,n3,n4,n5,n6='',n7='';
+if(dT>=12)n1='Temperature up: faster drying. Each +5 °C lowers the moisture by about 0.1%, and the exhaust gets hotter. Too high gives hollow granules.';
+else if(dT<=-12)n1='Temperature down: slower drying. Each −5 °C raises the moisture by about 0.1%. Too low makes powder stick to the wall.';
+else n1='Temperature near the plant average (about 678 °C).';
+if(dP>=1)n2='Pressure up: the slip flow rises, so the powder gets wetter at the same hot air (about +0.17% per +0.5 bar, or about +9 °C of hot air to compensate). Finer droplets give less mesh 30 residue and more fines.';
+else if(dP<=-0.5)n2='Pressure down: less slip flow, so drier powder at the same hot air, and lower capacity. Coarser droplets give more mesh 30 residue.';
+else n2='Pressure near the plant average (about 11 bar).';
+if(V>=3)n3='High viscosity: more 250 to 600 µm granules and fewer fines, lower slip flow. Very high values leave the powder wetter.';
+else if(V<=2.1)n3='Low viscosity: more fines and a risk of dusting.';
+else n3='Viscosity near the plant average (about 2.4 °E).';
+if(dD>=0.02)n4='High density: less water per liter of slip, so lower evaporation load, higher solids throughput and more mesh 30 residue.';
+else if(dD<=-0.02)n4='Low density: more water to evaporate, so wetter powder and lower solids throughput.';
+else n4='Density near the plant average (about 1.636 g/cc).';
+if(N>=29)n5='More nozzles: more slip flow and evaporation load, so wetter powder unless the hot air goes up (about 6 °C per nozzle in this model). A few more fines.';
+else if(N<=25)n5='Fewer nozzles: less slip flow and lower throughput, so the hot air can come down. A few fewer fines.';
+else n5='Nozzle quantity near the plant norm (26).';
+if(N>=29&&dT<=-12)n6='More nozzles with low hot air: the drying load is too high, so expect wet powder.';
+else if(D>=1.675&&dT<=-12)n6='High density with low temperature: the lower water load partly offsets the weaker drying.';
+else if(D<=1.62&&dT<=-12)n6='Low density with low temperature: both raise the drying load, so expect wet powder.';
+else if(V>=3.4&&dP<=-1)n6='High viscosity with low pressure: coarse droplets, so expect a wetter powder.';
+if(T<635||T>697||P>13||N>28||N<20||V>3||D<1.61||D>1.666)n7='Some settings are outside the plant data range, so this result is an extrapolation.';
+$('n1').textContent=n1;$('n2').textContent=n2;$('n3').textContent=n3;$('n4').textContent=n4;$('n5').textContent=n5;$('n6').textContent=n6;$('n7').textContent=n7;
+}
+function setZoom(z){z=Math.max(50,Math.min(120,z));$('zr').value=z;$('zo').textContent=z+'%';document.querySelector('.page').style.zoom=(z/90).toFixed(3);}
+$('zr').addEventListener('input',function(){setZoom(+this.value);});
+$('zm').onclick=function(){setZoom(+$('zr').value-5);};
+$('zp').onclick=function(){setZoom(+$('zr').value+5);};
+update();
+</script>
+</body>
+</html>
